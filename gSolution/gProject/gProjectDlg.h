@@ -1,7 +1,7 @@
 
 // gProjectDlg.h : header file
 //
-
+#include "DlgImage.h"
 #pragma once
 
 
@@ -11,6 +11,8 @@ class CgProjectDlg : public CDialogEx
 // Construction
 public:
 	CgProjectDlg(CWnd* pParent = NULL);	// standard constructor
+
+	CDlgImage *m_pDlgImage; // member pointer declare 
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
@@ -33,4 +35,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedBtnDlg();
+	afx_msg void OnDestroy();
+	void callFunc(int n); 
 };

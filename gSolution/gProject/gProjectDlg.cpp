@@ -7,10 +7,13 @@
 #include "gProjectDlg.h"
 #include "afxdialogex.h"
 
+#include<iostream>
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 
 // CAboutDlg dialog used for App About
 
@@ -65,6 +68,7 @@ BEGIN_MESSAGE_MAP(CgProjectDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BTN_DLG, &CgProjectDlg::OnBnClickedBtnDlg)
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -100,6 +104,9 @@ BOOL CgProjectDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	m_pDlgImage = new CDlgImage; // init --> need to add delete later. 
+	m_pDlgImage->Create(IDD_DLGIMAGE, this); // id, windows 
+	m_pDlgImage->ShowWindow(SW_SHOW); // show the dialog 
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -158,5 +165,21 @@ HCURSOR CgProjectDlg::OnQueryDragIcon()
 void CgProjectDlg::OnBnClickedBtnDlg()
 {
 	// TODO: Add your control notification handler code here
+	// gitTest 
+	m_pDlgImage->ShowWindow(SW_SHOW); // show windows whenever click on button. 
+}
 
+
+void CgProjectDlg::OnDestroy()
+{
+	CDialogEx::OnDestroy();
+
+	// TODO: Add your message handler code here
+	if (m_pDlgImage)
+		delete m_pDlgImage;
+}
+
+void CgProjectDlg::callFunc(int n) {
+	int nData = n; 
+	std::cout << n << std::endl; 
 }
