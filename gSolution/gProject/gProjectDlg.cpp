@@ -9,6 +9,8 @@
 
 #include<iostream>
 
+using namespace std; 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -67,8 +69,8 @@ BEGIN_MESSAGE_MAP(CgProjectDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED(IDC_BTN_DLG, &CgProjectDlg::OnBnClickedBtnDlg)
 	ON_WM_DESTROY()
+	ON_BN_CLICKED(IDC_BTN_TEST, &CgProjectDlg::OnBnClickedBtnTest)
 END_MESSAGE_MAP()
 
 
@@ -104,9 +106,19 @@ BOOL CgProjectDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	MoveWindow(0, 0, 1280, 800); // Main dialog set at 0, 0, size 1280x800 
+
 	m_pDlgImage = new CDlgImage; // init --> need to add delete later. 
 	m_pDlgImage->Create(IDD_DLGIMAGE, this); // id, windows 
 	m_pDlgImage->ShowWindow(SW_SHOW); // show the dialog 
+	// move dlgImage dialog to left place 
+	m_pDlgImage->MoveWindow(0, 0, 640, 480);
+
+	m_pDlgImgResult = new CDlgImage; // init --> need to add delete later. 
+	m_pDlgImgResult->Create(IDD_DLGIMAGE, this); // id, windows type as IDD_DLGIMAGE
+	m_pDlgImgResult->ShowWindow(SW_SHOW); // show the dialog 
+	// move 2nd dialog to the right side: 
+	m_pDlgImgResult->MoveWindow(640, 0, 640, 480);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -162,14 +174,6 @@ HCURSOR CgProjectDlg::OnQueryDragIcon()
 
 
 
-void CgProjectDlg::OnBnClickedBtnDlg()
-{
-	// TODO: Add your control notification handler code here
-	// gitTest 
-	m_pDlgImage->ShowWindow(SW_SHOW); // show windows whenever click on button. 
-}
-
-
 void CgProjectDlg::OnDestroy()
 {
 	CDialogEx::OnDestroy();
@@ -177,9 +181,54 @@ void CgProjectDlg::OnDestroy()
 	// TODO: Add your message handler code here
 	if (m_pDlgImage)
 		delete m_pDlgImage;
+	if (m_pDlgImgResult)
+		delete m_pDlgImgResult;
 }
 
 void CgProjectDlg::callFunc(int n) {
 	int nData = n; 
 	std::cout << n << std::endl; 
+}
+
+void CgProjectDlg::OnBnClickedBtnTest()
+{
+	// TODO: Add your control notification handler code here
+	unsigned char* fm = (unsigned char*)m_pDlgImage->m_image.GetBits(); // need unsigned char to access image data 
+	int nWidth = m_pDlgImage->m_image.GetWidth();
+	int nHeight = m_pDlgImage->m_image.GetHeight();;
+	int nPitch = m_pDlgImage->m_image.GetPitch();;
+
+	//memset(fm, 0xff, sizeof(unsigned char) * nWidth * nHeight);
+	memset(fm, 0xff, nWidth * nHeight);
+	for (int k = 0; k < 100; k++) {
+		int x = rand() % nWidth; 
+		int y = rand() % nHeight; 
+		fm[y*nPitch + x] = 0; 
+	}
+	//m_pDlgImage->Invalidate(); 
+	//memset(fm, 0xff, sizeof(unsigned char) * nWidth * nHeight);
+	
+	//int nSum = 0; 
+	int nIndex = 0; 
+	
+	for (int j = 0; j < nHeight; j++) {
+		for (int i = 0; i < nWidth; i++) {
+			if (fm[j*nPitch + i] == 0) {	// if left frame = 0 
+				//cout << nSum << ":" << i << "," << j <<  endl;
+				//nSum++;
+				// save the random point to m_ptData 
+				// size = 100, cannot save more than 100 
+				if (m_pDlgImgResult->m_nDataCount <100){ 
+					m_pDlgImgResult->m_ptData[nIndex].x = i; 
+					m_pDlgImgResult->m_ptData[nIndex].y = j;
+					m_pDlgImgResult->m_nDataCount = ++nIndex; // plus nIndex first 
+				}
+			}
+		}
+	}
+	
+	m_pDlgImage->Invalidate();
+	m_pDlgImgResult->Invalidate();
+
+	//cout << nSum << endl; 
 }

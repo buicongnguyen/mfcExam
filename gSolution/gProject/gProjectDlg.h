@@ -13,6 +13,7 @@ public:
 	CgProjectDlg(CWnd* pParent = NULL);	// standard constructor
 
 	CDlgImage *m_pDlgImage; // member pointer declare 
+	CDlgImage *m_pDlgImgResult; // another image dialog  
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
@@ -34,7 +35,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedBtnDlg();
 	afx_msg void OnDestroy();
 	void callFunc(int n); 
+	afx_msg void OnBnClickedBtnTest();
 };
