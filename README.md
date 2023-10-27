@@ -3,11 +3,10 @@
 List of what I did : 
 https://www.youtube.com/watch?v=hdc4BahGsr4&list=PLlIX4lkC1JdMx-vfK8I-J3-L-GL7TbMf9&index=6 
 
-github 
-github desktop 
+github : use application github desktop 
 	create a new repository on your hard disk. 
 	
-	C:\Project\ mfc Exam 
+		C:\Project\ mfc Exam 
 	OpenVisual studio 2015 make Project 
 	
 	Make solution 
@@ -24,9 +23,9 @@ github desktop
 	
 	changes :
 	hard disk sync with cloud 
-	some file does not need: 
-		some file continuous generate 
-		--> not sync --> delete : 
+	some file do not need to be sync to github: 
+		some file continuously generate 
+		--> not sync --> should be ignored : 
 		
 		Github: 
 		repository -> repository setting 
