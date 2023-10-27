@@ -38,4 +38,7 @@ public:
 	afx_msg void OnDestroy();
 	void callFunc(int n); 
 	afx_msg void OnBnClickedBtnTest();
+	afx_msg void OnBnClickedBtnProcess();
+	afx_msg void OnBnClickedBtnMakePattern();
+	afx_msg void OnBnClickedBtnGetData();
 };

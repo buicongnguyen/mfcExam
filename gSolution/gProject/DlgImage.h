@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAX_POINT 1000
+#define MAX_POINT 100000
 // CDlgImage dialog
 
 class CDlgImage : public CDialogEx
