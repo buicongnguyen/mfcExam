@@ -198,27 +198,30 @@ void CgProjectDlg::OnBnClickedBtnTest()
 	int nHeight = m_pDlgImage->m_image.GetHeight();;
 	int nPitch = m_pDlgImage->m_image.GetPitch();;
 
-	//memset(fm, 0xff, sizeof(unsigned char) * nWidth * nHeight);
-	memset(fm, 0xff, nWidth * nHeight);
-	for (int k = 0; k < 100; k++) {
+	memset(fm, 0, sizeof(unsigned char) * nWidth * nHeight);
+	//memset(fm, 0xff, nWidth * nHeight);
+	for (int k = 0; k < MAX_POINT; k++) {
 		int x = rand() % nWidth; 
 		int y = rand() % nHeight; 
-		fm[y*nPitch + x] = 0; 
+		fm[y*nPitch + x] = rand()%0xff; 
 	}
 	//m_pDlgImage->Invalidate(); 
 	//memset(fm, 0xff, sizeof(unsigned char) * nWidth * nHeight);
-	
-	//int nSum = 0; 
+
+	m_pDlgImgResult->m_nDataCount = 0;
 	int nIndex = 0; 
+	int nTh = 100; 
+	
 	
 	for (int j = 0; j < nHeight; j++) {
 		for (int i = 0; i < nWidth; i++) {
-			if (fm[j*nPitch + i] == 0) {	// if left frame = 0 
+			if (fm[j*nPitch + i] >nTh) {	// if left frame = 0 
 				//cout << nSum << ":" << i << "," << j <<  endl;
 				//nSum++;
 				// save the random point to m_ptData 
 				// size = 100, cannot save more than 100 
-				if (m_pDlgImgResult->m_nDataCount <100){ 
+				if (m_pDlgImgResult->m_nDataCount <MAX_POINT){
+					cout << nIndex << ":" << i << "," << j << endl;
 					m_pDlgImgResult->m_ptData[nIndex].x = i; 
 					m_pDlgImgResult->m_ptData[nIndex].y = j;
 					m_pDlgImgResult->m_nDataCount = ++nIndex; // plus nIndex first 

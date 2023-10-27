@@ -22,7 +22,9 @@
 
 #include <afxdisp.h>        // MFC Automation classes
 
-
+#define COLOR_RED RGB(0xff,0,0)
+#define COLOR_GREEN RGB(0,0xff,0)
+#define COLOR_BLUE RGB(0,0,0xff)
 
 #ifndef _AFX_NO_OLE_SUPPORT
 #include <afxdtctl.h>           // MFC support for Internet Explorer 4 Common Controls

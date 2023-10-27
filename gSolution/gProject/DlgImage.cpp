@@ -95,15 +95,21 @@ void CDlgImage::InitImage()
 	memset(fm, 0xff, sizeof(unsigned char)*nWidth*nHeight);
 }
 
-// 
+
+
+
 void CDlgImage::drawData(CDC* pDC) {
 	//CRect rect(0, 0, 15, 100); 
 	//pDC->Ellipse(rect);
 
+	//unsigned char* fm = (unsigned char*)m_image.GetBits();
+
+	//memset(fm, 0xff, nWidth*nHeight);
+	//memset(fm, 0xff, sizeof(unsigned char)*m_image.GetWidth()*m_image.GetHeight());
 	
 	CRect rect;
 	CPen pen; 
-	pen.CreatePen(PS_SOLID, 5, RGB(0xff, 0, 0));	// make new pen: RGB: R=255 
+	pen.CreatePen(PS_SOLID, 5, COLOR_GREEN);	// make new pen: RGB: R=255 
 	CPen* pOldPen = pDC->SelectObject(&pen);	// make a pointer point to old pen 
 	for (int i = 0; i < m_nDataCount; i++) {
 		rect.SetRect(m_ptData[i], m_ptData[i]);
